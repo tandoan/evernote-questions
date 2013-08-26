@@ -16,15 +16,13 @@ if(4 >= $numLines) {
 		$buffer[] = readline();
 	}
 
-	print_r($buffer);
 	//then compare the buffer to each input on the way in
 	for($i = 0;$i < $dif;$i++){
 		$input = readline();
-		for($k = 0;$k < 4;$k++) {
-			if($buffer[$k] < $input) {
-				$buffer[$k] = $input;
-				break;
-			}
+		$minValue = min($buffer);
+		if($input > $minValue){
+			$key = array_search($minValue, $buffer);
+			$buffer[$key] = $input;
 		}
 	}
 
