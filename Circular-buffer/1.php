@@ -23,47 +23,45 @@ class CircularBuffer{
 	}
 		
 	public function append($input){
-		$tail = ($this->head + $this->count) % $this->size;
-		$this->buffer[$tail] = $input;
+		//if size == 0, don't do anything.  prevent div by 0 error
+		if($this->size > 0) {
+			$tail = ($this->head + $this->count) % $this->size;
+			$this->buffer[$tail] = $input;
 
-		//if the buffer is full, move the head forward 1
-		if($this->count == $this->size){
-			$this->head = ($this->head + 1) % $this->size;
-		} else {
-			$this->count++;
+			//if the buffer is full, move the head forward 1
+			if($this->count == $this->size){
+				$this->head = ($this->head + 1) % $this->size;
+			} else {
+				$this->count++;
+			}
 		}
 	}
 
 	public function remove($n){
-		//increment head by n spaces, decrement count by n
-		$this->head = ($this->head + $n) % $this->size;
-		$this->count = $this->count - $n;	
-	}
+		//if size == 0, don't do anything.  prevent div by 0 error
+		if($this->size > 0) {
+			//increment head by n spaces, decrement count by n
+			$this->head = ($this->head + $n) % $this->size;
+			$this->count = $this->count - $n;	
 
-
-	//traverse from the head to the tail
-	public function __toString(){
-		$output = '';
-		$i = 0;
-		$readIndex = $this->head;
-		while($i < $this->count){
-			$output .= $this->buffer[$readIndex] . "\n";
-			$readIndex = ($readIndex + 1) % $this->size;
-			$i++;
 		}
-		return $output;
 	}
+
 
 	public function printBuffer(){
-		$i = 0;
-		$readIndex = $this->head;
-		while($i < $this->count){
-			echo $this->buffer[$readIndex];
-			echo "\n";
-			$readIndex = ($readIndex + 1) % $this->size;
-			$i++;
-		}
+		//if size == 0, don't do anything.  prevent div by 0 error
+		if($this->size > 0) {
 
+			$i = 0;
+			$readIndex = $this->head;
+			while($i < $this->count){
+				echo $this->buffer[$readIndex];
+				echo "\n";
+				$readIndex = ($readIndex + 1) % $this->size;
+				$i++;
+			}
+
+		}
 	}
 }
 
