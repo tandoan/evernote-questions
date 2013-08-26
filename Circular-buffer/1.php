@@ -1,5 +1,4 @@
 <?php
-
 class CircularBuffer{
 
 	private $buffer;
@@ -54,5 +53,48 @@ class CircularBuffer{
 		}
 		return $output;
 	}
+
+	public function printBuffer(){
+		$i = 0;
+		$readIndex = $this->head;
+		while($i < $this->count){
+			echo $this->buffer[$readIndex];
+			echo "\n";
+			$readIndex = ($readIndex + 1) % $this->size;
+			$i++;
+		}
+
+	}
 }
 
+class Driver{
+	public function execute() {
+		$bufferSize = trim(readline());
+		$cb = new CircularBuffer($bufferSize);
+
+		$line = '';
+		while(true) {
+
+			$line = readline();
+			if('A' == $line[0]){
+				$num = substr($line,2);
+				unset($element);
+				for($i = 0; $i < $num; $i++) {
+					$element = readline();
+					$cb->append($element);
+				}
+			} elseif('R' == $line[0]) {
+				$num = substr($line,2);
+				$cb->remove($num);
+			} elseif ('L' == $line[0]) {
+				$cb->printBuffer();
+			} elseif('Q' == $line[0]) {
+				exit;
+			}	
+		}
+	}
+	
+}
+
+$d = new Driver();
+$d->execute();
