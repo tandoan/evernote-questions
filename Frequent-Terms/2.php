@@ -3,7 +3,12 @@ class FrequencyCounter {
 	private $buffer;
 
 	function add($element) {
-		$this->buffer[$element] += 1;
+		//be explicit when adding new elements
+		if(!(isset($this->buffer[$element]))){
+			$this->buffer[$element] = 1;
+		} else {
+			$this->buffer[$element] += 1;
+		}
 	}
 
 	function getTopN($outputSize) {
@@ -21,6 +26,9 @@ class FrequencyCounter {
 				break;
 			}
 		}
+
+		//no need to keep 2 large arrays in memory
+		unset($workingBuffer);
 		
 
 		//sort lexographically
@@ -42,6 +50,7 @@ class FrequencyCounter {
 		return $return;
 	}
 }
+
 class Driver{
 	public function execute() {
 		$inputSize = trim(readline());
