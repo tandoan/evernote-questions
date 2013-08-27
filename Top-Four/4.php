@@ -16,7 +16,7 @@ if(4 >= $numLines) {
 		$buffer[] = readline();
 	}
 
-	//then compare the buffer to each input on the way in
+	//if input is greater than min value in array, replace min val with input
 	for($i = 0;$i < $dif;$i++){
 		$input = readline();
 		$minValue = min($buffer);
@@ -27,6 +27,8 @@ if(4 >= $numLines) {
 	}
 
 }
+
+//$buffer contains largest values.  sort and output
 arsort($buffer);
 echo join("\n", $buffer);
 
