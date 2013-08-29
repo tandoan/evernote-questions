@@ -60,7 +60,7 @@ class CircularBuffer{
 				//if list is called multiple times, these checks are necessary for new lines to be added correctly
 				//since a newline is not added on last output, need to add newline before output if this method has been called before
 				if($this->hasBeenListedFlag & $i===0){
-					echo "\n";
+					echo PHP_EOL;
 				}
 				if(!$this->hasBeenListedFlag){
 					$this->hasBeenListedFlag = true;
@@ -72,7 +72,7 @@ class CircularBuffer{
 
 				//don't output a newline if it is the last element
 				if($i < $this->count) {
-					echo "\n";
+					echo PHP_EOL;
 				}
 			}
 
