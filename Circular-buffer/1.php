@@ -29,7 +29,7 @@ class CircularBuffer{
 			$this->buffer[$tail] = $input;
 
 			//if the buffer is full, move the head forward 1
-			if($this->count == $this->size){
+			if($this->isFull()){
 				$this->head = ($this->head + 1) % $this->size;
 			} else {
 				$this->count++;
@@ -56,9 +56,11 @@ class CircularBuffer{
 			$readIndex = $this->head;
 			while($i < $this->count){
 				echo $this->buffer[$readIndex];
-				echo "\n";
 				$readIndex = ($readIndex + 1) % $this->size;
 				$i++;
+				if($i < $this->count) {
+					echo "\n";
+				}
 			}
 
 		}
