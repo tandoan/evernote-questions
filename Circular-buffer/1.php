@@ -1,6 +1,7 @@
 <?php
 class CircularBuffer{
 
+	private $hasBeenListedFlag = false;
 	private $buffer;
 	private $head;
 
@@ -11,6 +12,7 @@ class CircularBuffer{
 		$this->count = 0;	
 		$this->size = $size;	
 		$this->head = 0;
+		$this->hasBeenListedFlag = false;
 	}
 
 
@@ -55,9 +57,20 @@ class CircularBuffer{
 			$i = 0;
 			$readIndex = $this->head;
 			while($i < $this->count){
+				//if list is called multiple times, these checks are necessary for new lines to be added correctly
+				//since a newline is not added on last output, need to add newline before output if this method has been called before
+				if($this->hasBeenListedFlag & $i===0){
+					echo "\n";
+				}
+				if(!$this->hasBeenListedFlag){
+					$this->hasBeenListedFlag = true;
+				}
+
 				echo $this->buffer[$readIndex];
 				$readIndex = ($readIndex + 1) % $this->size;
 				$i++;
+
+				//don't output a newline if it is the last element
 				if($i < $this->count) {
 					echo "\n";
 				}
