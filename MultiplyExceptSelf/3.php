@@ -12,15 +12,15 @@ $leftProducts[0] = 1;
 $runCount = $numLines + 1;
 for($i=1;$i < $runCount; $i++){
 	$input = trim(readline());
-	$leftProducts[$i] = gmp_mul($leftProducts[$i-1], $input);
+	$leftProducts[$i] = bcmul($leftProducts[$i-1], $input);
 	$numbers[] = $input;
 }
 
 //step backwards, calculating product from right to left, store in place
 $rightProducts = 1;
 for($i = $numLines-2;$i>=0;$i--) {
-	$rightProducts = gmp_mul($rightProducts,  $numbers[$i+1]);
-	$leftProducts[$i] = gmp_mul($leftProducts[$i], $rightProducts);
+	$rightProducts = bcmul($rightProducts,  $numbers[$i+1]);
+	$leftProducts[$i] = bcmul($leftProducts[$i], $rightProducts);
 
 }
 
@@ -30,7 +30,7 @@ array_pop($leftProducts);
 //final output
 $i = 0;
 while($i<$numLines){
-	echo gmp_strval($leftProducts[$i]);
+	echo $leftProducts[$i];
 	$i++;
 	if($i<$numLines){
 		echo PHP_EOL;
